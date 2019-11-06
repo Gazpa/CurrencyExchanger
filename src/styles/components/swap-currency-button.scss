@@ -1,0 +1,40 @@
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg);
+  }
+}
+
+.swap-currency-button {
+  background-color: #008cba;
+  border: none;
+  border-radius: 1em;
+  color: white;
+  padding: 4px 4px 0 4px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1.2em;
+  font-weight: 500;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 5px 10px 8px $box-shadow-color;
+
+  &:hover {
+    background-color: #005aba;
+    svg {
+      animation: spin 300ms linear forwards;
+    }
+  }
+
+  &:active {
+    transform: translateY(1px);
+    box-shadow: 4px 9px 8px $box-shadow-color;
+  }
+
+  .refresh-icon {
+    transform: rotate(90deg);
+  }
+}

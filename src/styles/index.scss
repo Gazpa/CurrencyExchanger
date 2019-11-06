@@ -1,0 +1,38 @@
+@import "components/constants";
+@import "components/app";
+@import "components/pocket";
+@import "components/currency-select";
+@import "components/input";
+@import "components/balance-label";
+@import "components/logo";
+@import "components/exchange-button";
+@import "components/tools";
+@import "components/swap-currency-button";
+@import "components/rate-label";
+
+@import "components/icons/refresh-icon";
+
+@font-face {
+  font-family: Alverata-Black;
+  src: url("./fonts/Alverata-Black.otf") format("opentype");
+}
+
+html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  display: flex;
+  height: 100%;
+  background: black;
+  font-family: Alverata-Black;
+}
+
+#root {
+  flex: 1;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}

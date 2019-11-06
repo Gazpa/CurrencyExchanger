@@ -1,0 +1,25 @@
+.input-wrapper {
+  position: relative;
+  width: 100%;
+
+  span {
+    font-size: 1.5em;
+    position: absolute;
+    left: 0;
+    top: 30%;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+
+    outline: none;
+    border-width: 0 0 2px;
+    border-color: grey;
+    border-radius: 0;
+    text-align: right;
+    font-size: 2em;
+  }
+}

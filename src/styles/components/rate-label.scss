@@ -1,0 +1,29 @@
+.rate-label {
+  padding: 9px;
+  border-radius: 1em;
+  background-color: $light-grey-color;
+  box-shadow: 5px 10px 8px $box-shadow-color;
+  font-size: 1.2em;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    padding: 0 5px;
+  }
+
+  span {
+    vertical-align: top;
+    padding: 0 5px;
+  }
+
+  &.arrow-up {
+    svg {
+      transform: rotate(135deg);
+    }
+  }
+  &.arrow-down {
+    svg {
+      transform: rotate(225deg);
+    }
+  }
+}

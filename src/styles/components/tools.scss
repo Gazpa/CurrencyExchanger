@@ -1,0 +1,26 @@
+.tools {
+  flex: 1;
+
+  .tools-top,
+  .tools-bottom {
+    height: 50%;
+    width: 100%;
+  }
+
+  .tools-bottom {
+    position: relative;
+    background-color: $light-grey-color;
+
+    .swap-currency-button {
+      top: -70%;
+      left: 30px;
+      position: absolute;
+    }
+
+    .rate-label {
+      top: -70%;
+      left: 35%;
+      position: absolute;
+    }
+  }
+}
