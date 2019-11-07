@@ -5,7 +5,7 @@ import { BalanceLabel } from "js/components/BalanceLabel";
 import { Input } from "js/components/Input";
 import { TRatesWeUse } from "js/store/actions/types";
 
-interface IPocketProps {
+export interface IPocketProps {
   selectedCurrency: TRatesWeUse;
   onSelectChange: (rate: TRatesWeUse) => void;
   balance: number;

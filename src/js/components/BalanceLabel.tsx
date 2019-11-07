@@ -1,7 +1,7 @@
 import React from "react";
 import { RATES_WE_USE, currencySymbols } from "js/store/actions/types";
 
-interface IBalanceLabelProps {
+export interface IBalanceLabelProps {
   balance: number;
   selectedCurrency: RATES_WE_USE;
 }

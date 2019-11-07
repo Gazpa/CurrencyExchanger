@@ -70,7 +70,7 @@ const AppComponent: FunctionComponent<IAppComponentProps> = ({
 
       setErrorMessage("");
       setInputSubtractFromValue(value);
-      setInputToAddValue(String(newValue));
+      setInputToAddValue(newValue);
     },
     [selectedCurrencyFrom, selectedCurrencyTo]
   );
@@ -87,7 +87,7 @@ const AppComponent: FunctionComponent<IAppComponentProps> = ({
 
       setErrorMessage("");
       setSelectedCurrencyFrom(rate);
-      setInputToAddValue(String(newValue));
+      setInputToAddValue(newValue);
     },
     [
       setInputToAddValue,
@@ -108,7 +108,7 @@ const AppComponent: FunctionComponent<IAppComponentProps> = ({
       );
 
       setErrorMessage("");
-      setInputSubtractFromValue(String(newValue));
+      setInputSubtractFromValue(newValue);
       setInputToAddValue(value);
     },
     [selectedCurrencyFrom, selectedCurrencyTo]
@@ -126,7 +126,7 @@ const AppComponent: FunctionComponent<IAppComponentProps> = ({
 
       setErrorMessage("");
       setSelectedCurrencyTo(rate);
-      setInputToAddValue(String(newValue));
+      setInputToAddValue(newValue);
     },
     [
       inputToSubtractFromValue,

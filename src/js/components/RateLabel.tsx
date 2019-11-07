@@ -27,7 +27,7 @@ const RateLabelComponent: FunctionComponent<IRateLabelProps> = ({
       currencyTo,
       MAX_DECIMALS_RATE_LABEL
     );
-    const changeValueIsPositive = changeValue >= 1;
+    const changeValueIsPositive = Number(changeValue) >= 1;
     setArrowGoingUp(changeValueIsPositive);
 
     return `${currencySymbols[currencyFrom]} 1 = ${currencySymbols[currencyTo]} ${changeValue}`;

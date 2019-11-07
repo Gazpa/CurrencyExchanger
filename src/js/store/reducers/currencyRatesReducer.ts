@@ -11,7 +11,7 @@ export interface ICurrencyRatesState {
   lastFetched: number;
 }
 
-const INITIAL_STATE: ICurrencyRatesState = {
+export const INITIAL_STATE: ICurrencyRatesState = {
   rates: {},
   base: RATES_WE_USE.USD,
   lastFetched: 0

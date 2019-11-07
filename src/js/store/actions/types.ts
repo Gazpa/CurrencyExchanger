@@ -7,9 +7,15 @@ export enum BALANCES_ACTION_TYPES {
   ADD_TO_BALANCE = "addToBalance"
 }
 
+interface ICurrencyRatesActionPayload {
+  base: RATES_WE_USE;
+  rates: IRates;
+  timestamp: number;
+}
+
 export interface ICurrencyRatesAction {
   type: CURRENCY_RATES_ACTION_TYPES;
-  payload: any;
+  payload: ICurrencyRatesActionPayload;
 }
 
 interface IBalanceActionPayload {
@@ -38,7 +44,7 @@ export type TRatesWeUse =
 export type TRatesWeUseMap = { [key in TRatesWeUse]: number };
 
 export interface ICurrencyRatesAPIResponseData {
-  base: string;
+  base: RATES_WE_USE;
   disclaimer: string;
   license: string;
   rates: IRates;

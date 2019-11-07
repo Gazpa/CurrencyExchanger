@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 
-interface IExchangeButtonProps {
+export interface IExchangeButtonProps {
   onClick: () => void;
   errorMessage: string;
 }

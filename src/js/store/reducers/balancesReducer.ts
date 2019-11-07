@@ -8,7 +8,7 @@ import {
 type IBalancesMap = { [key in TRatesWeUse]: number };
 export type IBalancesState = IBalancesMap;
 
-const INITIAL_STATE: IBalancesState = {
+export const INITIAL_STATE: IBalancesState = {
   [RATES_WE_USE.EUR]: 1000,
   [RATES_WE_USE.GBP]: 5000,
   [RATES_WE_USE.USD]: 4000

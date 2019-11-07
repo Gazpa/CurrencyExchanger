@@ -2,7 +2,7 @@ import React, { FunctionComponent, ChangeEvent } from "react";
 
 import { RATES_WE_USE, TRatesWeUse } from "js/store/actions/types";
 
-interface ICurrencySelectProps {
+export interface ICurrencySelectProps {
   onChangeSelection: (rate: TRatesWeUse) => void;
   selectedValue: TRatesWeUse;
 }

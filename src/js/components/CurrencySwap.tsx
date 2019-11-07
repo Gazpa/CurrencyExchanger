@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react";
 
 import { RefreshIcon } from "js/components/icons/RefreshIcon";
 
-interface ICurrencySwapProps {
+export interface ICurrencySwapProps {
   onClick: () => void;
 }
 

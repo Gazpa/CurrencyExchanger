@@ -3,5 +3,4 @@ import reduxThunk from "redux-thunk";
 
 import reducers from "js/store/reducers";
 
-const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
-export const store = createStoreWithMiddleware(reducers);
+export const store = createStore(reducers, {}, applyMiddleware(reduxThunk));

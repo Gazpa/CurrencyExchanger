@@ -4,7 +4,7 @@ import { CurrencySwap } from "js/components/CurrencySwap";
 import { RateLabel } from "js/components/RateLabel";
 import { RATES_WE_USE } from "js/store/actions/types";
 
-interface IToolsProps {
+export interface IToolsProps {
   onClickCurrencySwap: () => void;
   currencyFrom: RATES_WE_USE;
   currencyTo: RATES_WE_USE;

@@ -1,13 +1,15 @@
 import React, { ChangeEvent, FunctionComponent, useCallback } from "react";
 
-interface IInputProps {
+export interface IInputProps {
   value: string;
   onInputChange: (value: string) => void;
   valueToAdd: boolean;
 }
 
-// We use this pattern to take out zeros from the left
-const patternLeftZeros = /^0+/;
+// We use this pattern to take out zeros that are of no use
+const patternZeros = /^0+([.]00)?$/;
+// We use this pattern to take out the first zero to the left if any
+const patternFirstZero = /^0[0-9]+?/;
 // We use this pattern to get numbers with 2 decimals
 const patternFor2Decimals = /^[0-9]{1,6}[.]?([0-9]{1,2})?$/;
 
@@ -22,9 +24,16 @@ export const Input: FunctionComponent<IInputProps> = ({
       const regex = new RegExp(patternFor2Decimals);
       const matchesRegExp = regex.test(evtValue);
 
+      console.log(matchesRegExp, event.target.value);
+
       if (matchesRegExp) {
         // Only update the value if it matches the expression
-        const parsedValue = evtValue.replace(patternLeftZeros, "");
+        let parsedValue = evtValue.replace(patternZeros, "0");
+
+        const regexFirstZero = new RegExp(patternFirstZero);
+        const matchesRegExpFirstZero = regexFirstZero.test(parsedValue);
+
+        if (matchesRegExpFirstZero) parsedValue = parsedValue.slice(1);
         onInputChange(parsedValue);
       } else if (evtValue === "") {
         // If the user is trying to clear the input
