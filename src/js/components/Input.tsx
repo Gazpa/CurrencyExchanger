@@ -11,7 +11,7 @@ const patternZeros = /^0+([.]00)?$/;
 // We use this pattern to take out the first zero to the left if any
 const patternFirstZero = /^0[0-9]+?/;
 // We use this pattern to get numbers with 2 decimals
-const patternFor2Decimals = /^[0-9]{1,6}[.]?([0-9]{1,2})?$/;
+const patternFor2Decimals = /^[0-9]{1,10}[.]?([0-9]{1,2})?$/;
 
 export const Input: FunctionComponent<IInputProps> = ({
   value,
