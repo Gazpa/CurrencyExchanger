@@ -24,8 +24,6 @@ export const Input: FunctionComponent<IInputProps> = ({
       const regex = new RegExp(patternFor2Decimals);
       const matchesRegExp = regex.test(evtValue);
 
-      console.log(matchesRegExp, event.target.value);
-
       if (matchesRegExp) {
         // Only update the value if it matches the expression
         let parsedValue = evtValue.replace(patternZeros, "0");
