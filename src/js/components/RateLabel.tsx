@@ -7,13 +7,13 @@ import { calculateValueBetweenCurrencies } from "js/utils/services";
 import { LeftArrowIcon } from "js/components/icons/LeftArrowIcon";
 import { MAX_DECIMALS_RATE_LABEL } from "js/utils/constants";
 
-interface IRateLabelProps {
+export interface IRateLabelProps {
   currencyFrom: RATES_WE_USE;
   currencyTo: RATES_WE_USE;
   rates: IRates;
 }
 
-const RateLabelComponent: FunctionComponent<IRateLabelProps> = ({
+export const RateLabelComponent: FunctionComponent<IRateLabelProps> = ({
   currencyFrom,
   currencyTo,
   rates
@@ -25,7 +25,8 @@ const RateLabelComponent: FunctionComponent<IRateLabelProps> = ({
       1,
       currencyFrom,
       currencyTo,
-      MAX_DECIMALS_RATE_LABEL
+      MAX_DECIMALS_RATE_LABEL,
+      rates
     );
     const changeValueIsPositive = Number(changeValue) >= 1;
     setArrowGoingUp(changeValueIsPositive);

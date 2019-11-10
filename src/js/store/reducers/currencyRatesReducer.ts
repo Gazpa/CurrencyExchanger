@@ -6,7 +6,7 @@ import {
 } from "js/store/actions/types";
 
 export interface ICurrencyRatesState {
-  rates?: IRates;
+  rates: IRates;
   base: RATES_WE_USE;
   lastFetched: number;
 }

@@ -23,7 +23,7 @@ export const Pocket: FunctionComponent<IPocketProps> = ({
   pocketToAdd
 }) => {
   return (
-    <div className="pocket">
+    <div className={`pocket ${pocketToAdd ? "to-add" : "to-subtract"}`}>
       <div className="pocket-left-section">
         <CurrencySelect
           selectedValue={selectedCurrency}

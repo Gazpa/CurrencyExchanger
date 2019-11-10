@@ -36,6 +36,14 @@ In it you can select how much money you want to change and which currencies. The
 
 The main component is the `App` component, from this one we would use different child stateless components that will be reusable.<br />
 
+To swap between `App` Function Component type and Class Component type,
+please change the import for that component in files:<br />
+
+- `src/index.js`
+- `src/js/components/__test__/App.test.tsx`
+
+To be `"js/components/AppClassComponent"`.
+
 All changes in the inputs or other components are managed by the main `App` component and the result is passed as props to children.<br />
 
 We use `redux` to manage app state, but would have been enough with `useReducer` at top level, passing any info needed via props or<br />

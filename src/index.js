@@ -7,7 +7,7 @@ import { App } from "js/components/App";
 import "styles/index.scss";
 
 ReactDOM.render(
-  <Root>
+  <Root initialState={{}}>
     <App />
   </Root>,
   document.getElementById("root")

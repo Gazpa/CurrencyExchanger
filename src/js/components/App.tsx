@@ -11,7 +11,7 @@ import { Logo } from "js/components/Logo";
 import { ExchangeButton } from "js/components/ExchangeButton";
 import { Tools } from "js/components/Tools";
 
-import { RATES_WE_USE, TRatesWeUse } from "js/store/actions/types";
+import { RATES_WE_USE, TRatesWeUse, IRates } from "js/store/actions/types";
 import { fetchLatestAction } from "js/store/actions/currencyRatesActions";
 import {
   addToBalanceAction,
@@ -31,13 +31,15 @@ interface IAppComponentProps {
   subtractFromBalance: (currency: RATES_WE_USE, value: number) => void;
   addToBalance: (currency: RATES_WE_USE, value: number) => void;
   balances: IBalancesState;
+  rates: IRates | {};
 }
 
 const AppComponent: FunctionComponent<IAppComponentProps> = ({
   fetchLatest,
   subtractFromBalance,
   addToBalance,
-  balances
+  balances,
+  rates
 }) => {
   // State could be managed by useReducer to avoid multiple renderings
   // and making the code cleaner and more readable.
@@ -48,7 +50,7 @@ const AppComponent: FunctionComponent<IAppComponentProps> = ({
   const [selectedCurrencyTo, setSelectedCurrencyTo] = useState(
     RATES_WE_USE.EUR
   );
-  const [inputToSubtractFromValue, setInputSubtractFromValue] = useState("");
+  const [inputToSubtractFromValue, setInputToSubtractFromValue] = useState("");
   const [inputToAddValue, setInputToAddValue] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -65,14 +67,15 @@ const AppComponent: FunctionComponent<IAppComponentProps> = ({
         parsedValue,
         selectedCurrencyFrom,
         selectedCurrencyTo,
-        MAX_DECIMALS_POCKETS
+        MAX_DECIMALS_POCKETS,
+        rates
       );
 
       setErrorMessage("");
-      setInputSubtractFromValue(value);
+      setInputToSubtractFromValue(value);
       setInputToAddValue(newValue);
     },
-    [selectedCurrencyFrom, selectedCurrencyTo]
+    [selectedCurrencyFrom, selectedCurrencyTo, rates]
   );
 
   const onChangeSelectedCurrencyFrom = useCallback(
@@ -82,7 +85,8 @@ const AppComponent: FunctionComponent<IAppComponentProps> = ({
         parsedValue,
         rate,
         selectedCurrencyTo,
-        MAX_DECIMALS_POCKETS
+        MAX_DECIMALS_POCKETS,
+        rates
       );
 
       setErrorMessage("");
@@ -93,7 +97,8 @@ const AppComponent: FunctionComponent<IAppComponentProps> = ({
       setInputToAddValue,
       setSelectedCurrencyFrom,
       selectedCurrencyTo,
-      inputToSubtractFromValue
+      inputToSubtractFromValue,
+      rates
     ]
   );
 
@@ -104,14 +109,15 @@ const AppComponent: FunctionComponent<IAppComponentProps> = ({
         parsedValue,
         selectedCurrencyFrom,
         selectedCurrencyTo,
-        MAX_DECIMALS_POCKETS
+        MAX_DECIMALS_POCKETS,
+        rates
       );
 
       setErrorMessage("");
-      setInputSubtractFromValue(newValue);
+      setInputToSubtractFromValue(newValue);
       setInputToAddValue(value);
     },
-    [selectedCurrencyFrom, selectedCurrencyTo]
+    [selectedCurrencyFrom, selectedCurrencyTo, rates]
   );
 
   const onChangeSelectedCurrencyTo = useCallback(
@@ -121,7 +127,8 @@ const AppComponent: FunctionComponent<IAppComponentProps> = ({
         parsedValue,
         selectedCurrencyFrom,
         rate,
-        MAX_DECIMALS_POCKETS
+        MAX_DECIMALS_POCKETS,
+        rates
       );
 
       setErrorMessage("");
@@ -132,7 +139,8 @@ const AppComponent: FunctionComponent<IAppComponentProps> = ({
       inputToSubtractFromValue,
       selectedCurrencyFrom,
       setInputToAddValue,
-      setSelectedCurrencyTo
+      setSelectedCurrencyTo,
+      rates
     ]
   );
 
@@ -150,7 +158,7 @@ const AppComponent: FunctionComponent<IAppComponentProps> = ({
       subtractFromBalance(selectedCurrencyFrom, parsedSubtractFromValue);
       addToBalance(selectedCurrencyTo, parsedToAddValue);
 
-      setInputSubtractFromValue("");
+      setInputToSubtractFromValue("");
       setInputToAddValue("");
     }
   }, [
@@ -167,7 +175,7 @@ const AppComponent: FunctionComponent<IAppComponentProps> = ({
     setSelectedCurrencyFrom(selectedCurrencyTo);
     setSelectedCurrencyTo(selectedCurrencyFrom);
 
-    setInputSubtractFromValue(inputToAddValue);
+    setInputToSubtractFromValue(inputToAddValue);
     setInputToAddValue(inputToSubtractFromValue);
   }, [
     selectedCurrencyTo,
@@ -208,12 +216,14 @@ const AppComponent: FunctionComponent<IAppComponentProps> = ({
   );
 };
 
-type TMapStateProps = Pick<IAppComponentProps, "balances">;
+type TMapStateProps = Pick<IAppComponentProps, "balances" | "rates">;
 
 const mapStateToProps: MapStateToProps<TMapStateProps, {}, IStoreState> = ({
-  balances
+  balances,
+  currencyRates: { rates }
 }) => ({
-  balances
+  balances,
+  rates
 });
 
 type TMapDispatchProps = Pick<
