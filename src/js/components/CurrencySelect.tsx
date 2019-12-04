@@ -1,34 +1,39 @@
 import React, { FunctionComponent, ChangeEvent } from "react";
 
-import { RATES_WE_USE, TRatesWeUse } from "js/store/actions/types";
+import { RATES_WE_USE } from "js/store/actions/types";
 
 export interface ICurrencySelectProps {
-  onChangeSelection: (rate: TRatesWeUse) => void;
-  selectedValue: TRatesWeUse;
+  onChangeSelection: (rate: RATES_WE_USE) => void;
+  selectedValue: RATES_WE_USE;
+  oppositeSelectedValue?: RATES_WE_USE;
 }
 
-const displayOptions = () => {
-  return Object.keys(RATES_WE_USE).map(rate => (
-    <option key={rate} value={rate}>
-      {rate}
-    </option>
-  ));
+const displayOptions = (oppositeSelectedValue?: RATES_WE_USE) => {
+  return Object.keys(RATES_WE_USE)
+    .filter(rate => rate !== oppositeSelectedValue)
+    .map(rate => (
+      <option key={rate} value={rate}>
+        {rate}
+      </option>
+    ));
 };
 
-export const CurrencySelect: FunctionComponent<
-  ICurrencySelectProps
-> = props => {
+export const CurrencySelect: FunctionComponent<ICurrencySelectProps> = ({
+  selectedValue,
+  oppositeSelectedValue,
+  onChangeSelection
+}) => {
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    props.onChangeSelection(event.target.value as TRatesWeUse);
+    onChangeSelection(event.target.value as RATES_WE_USE);
   };
 
   return (
     <select
       onChange={handleChange}
-      value={props.selectedValue}
+      value={selectedValue}
       className="select-css"
     >
-      {displayOptions()}
+      {displayOptions(oppositeSelectedValue)}
     </select>
   );
 };

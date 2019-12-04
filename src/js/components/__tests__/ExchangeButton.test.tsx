@@ -13,30 +13,32 @@ const props: IExchangeButtonProps = {
   errorMessage: ""
 };
 
-beforeEach(() => {
-  wrapped = shallow(<ExchangeButton {...props} />);
-});
+describe("ExchangeButton", () => {
+  beforeEach(() => {
+    wrapped = shallow(<ExchangeButton {...props} />);
+  });
 
-it("shows a button with text Exchange", () => {
-  expect(wrapped.find("button").length).toEqual(1);
-  expect(wrapped.render().text()).toContain("Exchange");
-});
+  it("shows a button with text Exchange", () => {
+    expect(wrapped.find("button").length).toEqual(1);
+    expect(wrapped.render().text()).toContain("Exchange");
+  });
 
-it("does not show error message", () => {
-  expect(wrapped.find(".error-message").length).toEqual(0);
-});
+  it("does not show error message", () => {
+    expect(wrapped.find(".error-message").length).toEqual(0);
+  });
 
-it("shows error message", () => {
-  const errorText = "I am an error";
-  const propsWithError: IExchangeButtonProps = {
-    onClick: () => null,
-    errorMessage: errorText
-  };
+  it("shows error message", () => {
+    const errorText = "I am an error";
+    const propsWithError: IExchangeButtonProps = {
+      onClick: () => null,
+      errorMessage: errorText
+    };
 
-  const wrappedWithError: ShallowWrapper<
-    FunctionComponent<IExchangeButtonProps>
-  > = shallow(<ExchangeButton {...propsWithError} />);
+    const wrappedWithError: ShallowWrapper<FunctionComponent<
+      IExchangeButtonProps
+    >> = shallow(<ExchangeButton {...propsWithError} />);
 
-  expect(wrappedWithError.find(".error-message").length).toEqual(1);
-  expect(wrappedWithError.render().text()).toContain(errorText);
+    expect(wrappedWithError.find(".error-message").length).toEqual(1);
+    expect(wrappedWithError.render().text()).toContain(errorText);
+  });
 });

@@ -18,18 +18,20 @@ const props: IPocketProps = {
   pocketToAdd: false
 };
 
-beforeEach(() => {
-  wrapped = shallow(<Pocket {...props} />);
-});
+describe("Pocket", () => {
+  beforeEach(() => {
+    wrapped = shallow(<Pocket {...props} />);
+  });
 
-it("shows a dropdowns to select currencies", () => {
-  expect(wrapped.find(CurrencySelect).length).toEqual(1);
-});
+  it("shows a dropdowns to select currencies", () => {
+    expect(wrapped.find(CurrencySelect).length).toEqual(1);
+  });
 
-it("shows balance label for that currency", () => {
-  expect(wrapped.find(BalanceLabel).length).toEqual(1);
-});
+  it("shows balance label for that currency", () => {
+    expect(wrapped.find(BalanceLabel).length).toEqual(1);
+  });
 
-it("shows an input to introduce an amount", () => {
-  expect(wrapped.find(Input).length).toEqual(1);
+  it("shows an input to introduce an amount", () => {
+    expect(wrapped.find(Input).length).toEqual(1);
+  });
 });

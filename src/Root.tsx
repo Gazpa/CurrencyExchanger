@@ -1,24 +1,12 @@
 import React, { FunctionComponent } from "react";
+import { Store } from "redux";
 import { Provider } from "react-redux";
-import { createStore, applyMiddleware } from "redux";
-import reduxThunk from "redux-thunk";
-
-import reducers, { IStoreState } from "js/store/reducers";
 
 interface IRootProps {
   children: React.ReactNode;
-  initialState: IStoreState | {};
+  store: Store;
 }
 
-export const Root: FunctionComponent<IRootProps> = ({
-  children,
-  initialState
-}) => {
-  const store = createStore(
-    reducers,
-    initialState,
-    applyMiddleware(reduxThunk)
-  );
-
+export const Root: FunctionComponent<IRootProps> = ({ children, store }) => {
   return <Provider store={store}>{children}</Provider>;
 };

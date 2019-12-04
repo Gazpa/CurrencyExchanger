@@ -11,18 +11,20 @@ const props: IBalanceLabelProps = {
   selectedCurrency: RATES_WE_USE.EUR
 };
 
-beforeEach(() => {
-  wrapped = shallow(<BalanceLabel {...props} />);
-});
+describe("BalanceLabel", () => {
+  beforeEach(() => {
+    wrapped = shallow(<BalanceLabel {...props} />);
+  });
 
-it("shows the correct balance label", () => {
-  const expectedText = `Balance: ${currencySymbols[props.selectedCurrency]} ${
-    props.balance
-  }`;
-  expect(wrapped.render().text()).toContain(expectedText);
-});
+  it("shows the correct balance label", () => {
+    const expectedText = `Balance: ${currencySymbols[props.selectedCurrency]} ${
+      props.balance
+    }`;
+    expect(wrapped.render().text()).toContain(expectedText);
+  });
 
-it("displays 1 div and 1 span", () => {
-  expect(wrapped.find("div").length).toEqual(1);
-  expect(wrapped.find("span").length).toEqual(1);
+  it("displays 1 div and 1 span", () => {
+    expect(wrapped.find("div").length).toEqual(1);
+    expect(wrapped.find("span").length).toEqual(1);
+  });
 });

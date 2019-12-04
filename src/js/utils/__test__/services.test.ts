@@ -1,7 +1,7 @@
 import { calculateValueBetweenCurrencies } from "js/utils/services";
-import { RATES_WE_USE, IRates } from "js/store/actions/types";
+import { RATES_WE_USE, TRates } from "js/store/actions/types";
 
-const mockStoreRates: IRates = {
+const mockStoreRates: TRates = {
   [RATES_WE_USE.EUR]: 1,
   [RATES_WE_USE.GBP]: 0.8,
   [RATES_WE_USE.USD]: 0.1

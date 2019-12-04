@@ -2,7 +2,8 @@ import React, {
   FunctionComponent,
   useEffect,
   useState,
-  useCallback
+  useCallback,
+  useRef
 } from "react";
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 
@@ -11,7 +12,7 @@ import { Logo } from "js/components/Logo";
 import { ExchangeButton } from "js/components/ExchangeButton";
 import { Tools } from "js/components/Tools";
 
-import { RATES_WE_USE, TRatesWeUse, IRates } from "js/store/actions/types";
+import { RATES_WE_USE, TRates } from "js/store/actions/types";
 import { fetchLatestAction } from "js/store/actions/currencyRatesActions";
 import {
   addToBalanceAction,
@@ -31,7 +32,7 @@ interface IAppComponentProps {
   subtractFromBalance: (currency: RATES_WE_USE, value: number) => void;
   addToBalance: (currency: RATES_WE_USE, value: number) => void;
   balances: IBalancesState;
-  rates: IRates | {};
+  rates: TRates;
 }
 
 const AppComponent: FunctionComponent<IAppComponentProps> = ({
@@ -45,7 +46,7 @@ const AppComponent: FunctionComponent<IAppComponentProps> = ({
   // and making the code cleaner and more readable.
   // At the moment useState works good, and we don't have many
   const [selectedCurrencyFrom, setSelectedCurrencyFrom] = useState(
-    RATES_WE_USE.EUR
+    RATES_WE_USE.GBP
   );
   const [selectedCurrencyTo, setSelectedCurrencyTo] = useState(
     RATES_WE_USE.EUR
@@ -53,12 +54,21 @@ const AppComponent: FunctionComponent<IAppComponentProps> = ({
   const [inputToSubtractFromValue, setInputToSubtractFromValue] = useState("");
   const [inputToAddValue, setInputToAddValue] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const timeout = useRef(0);
+
+  const startFetchPolling = useCallback(() => {
+    fetchLatest();
+    timeout.current = window.setTimeout(() => {
+      clearTimeout(timeout.current);
+      startFetchPolling();
+    }, POLL_INTERVAL);
+
+    return () => clearTimeout(timeout.current);
+  }, [fetchLatest]);
 
   useEffect(() => {
-    fetchLatest();
-    const interval = setInterval(() => fetchLatest(), POLL_INTERVAL);
-    return () => clearInterval(interval);
-  }, [fetchLatest]);
+    startFetchPolling();
+  }, [startFetchPolling]);
 
   const onChangeInputSubtractFrom = useCallback(
     (value: string) => {
@@ -79,7 +89,7 @@ const AppComponent: FunctionComponent<IAppComponentProps> = ({
   );
 
   const onChangeSelectedCurrencyFrom = useCallback(
-    (rate: TRatesWeUse) => {
+    (rate: RATES_WE_USE) => {
       const parsedValue = Number(inputToSubtractFromValue);
       const newValue = calculateValueBetweenCurrencies(
         parsedValue,
@@ -121,7 +131,7 @@ const AppComponent: FunctionComponent<IAppComponentProps> = ({
   );
 
   const onChangeSelectedCurrencyTo = useCallback(
-    (rate: TRatesWeUse) => {
+    (rate: RATES_WE_USE) => {
       const parsedValue = Number(inputToSubtractFromValue);
       const newValue = calculateValueBetweenCurrencies(
         parsedValue,
@@ -202,6 +212,7 @@ const AppComponent: FunctionComponent<IAppComponentProps> = ({
       />
       <Pocket
         selectedCurrency={selectedCurrencyTo}
+        oppositeSelectedCurrency={selectedCurrencyFrom}
         onSelectChange={onChangeSelectedCurrencyTo}
         balance={balances[selectedCurrencyTo]}
         inputValue={inputToAddValue}
@@ -237,7 +248,4 @@ const mapDispatchToProps: MapDispatchToProps<TMapDispatchProps, {}> = {
   subtractFromBalance: subtractFromBalanceAction
 };
 
-export const App = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AppComponent);
+export const App = connect(mapStateToProps, mapDispatchToProps)(AppComponent);

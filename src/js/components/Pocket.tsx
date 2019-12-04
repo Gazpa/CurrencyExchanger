@@ -3,11 +3,12 @@ import React, { FunctionComponent } from "react";
 import { CurrencySelect } from "js/components/CurrencySelect";
 import { BalanceLabel } from "js/components/BalanceLabel";
 import { Input } from "js/components/Input";
-import { TRatesWeUse } from "js/store/actions/types";
+import { RATES_WE_USE } from "js/store/actions/types";
 
 export interface IPocketProps {
-  selectedCurrency: TRatesWeUse;
-  onSelectChange: (rate: TRatesWeUse) => void;
+  selectedCurrency: RATES_WE_USE;
+  oppositeSelectedCurrency?: RATES_WE_USE;
+  onSelectChange: (rate: RATES_WE_USE) => void;
   balance: number;
   inputValue: string;
   onInputChange: (value: string) => void;
@@ -16,6 +17,7 @@ export interface IPocketProps {
 
 export const Pocket: FunctionComponent<IPocketProps> = ({
   selectedCurrency,
+  oppositeSelectedCurrency,
   onSelectChange,
   balance,
   inputValue,
@@ -27,6 +29,7 @@ export const Pocket: FunctionComponent<IPocketProps> = ({
       <div className="pocket-left-section">
         <CurrencySelect
           selectedValue={selectedCurrency}
+          oppositeSelectedValue={oppositeSelectedCurrency}
           onChangeSelection={onSelectChange}
         />
         <BalanceLabel selectedCurrency={selectedCurrency} balance={balance} />

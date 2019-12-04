@@ -6,7 +6,7 @@ import { Logo } from "js/components/Logo";
 import { ExchangeButton } from "js/components/ExchangeButton";
 import { Tools } from "js/components/Tools";
 
-import { RATES_WE_USE, TRatesWeUse, IRates } from "js/store/actions/types";
+import { RATES_WE_USE, TRates } from "js/store/actions/types";
 import { fetchLatestAction } from "js/store/actions/currencyRatesActions";
 import {
   addToBalanceAction,
@@ -26,7 +26,7 @@ interface IAppComponentProps {
   subtractFromBalance: (currency: RATES_WE_USE, value: number) => void;
   addToBalance: (currency: RATES_WE_USE, value: number) => void;
   balances: IBalancesState;
-  rates: IRates | {};
+  rates: TRates;
 }
 
 interface IState {
@@ -38,13 +38,13 @@ interface IState {
 }
 
 class AppComponent extends React.Component<IAppComponentProps, IState> {
-  interval = 0;
+  timeout = 0;
 
   constructor(props: IAppComponentProps) {
     super(props);
 
     this.state = {
-      selectedCurrencyFrom: RATES_WE_USE.EUR,
+      selectedCurrencyFrom: RATES_WE_USE.GBP,
       selectedCurrencyTo: RATES_WE_USE.EUR,
       inputToSubtractFromValue: "",
       inputToAddValue: "",
@@ -52,16 +52,20 @@ class AppComponent extends React.Component<IAppComponentProps, IState> {
     };
   }
 
-  componentDidMount() {
+  startFetchPolling = () => {
     this.props.fetchLatest();
-    this.interval = window.setInterval(
-      () => this.props.fetchLatest(),
-      POLL_INTERVAL
-    );
+    this.timeout = window.setTimeout(() => {
+      clearTimeout(this.timeout);
+      this.startFetchPolling();
+    }, POLL_INTERVAL);
+  };
+
+  componentDidMount() {
+    this.startFetchPolling();
   }
 
   componentWillUnmount() {
-    clearInterval(this.interval);
+    clearTimeout(this.timeout);
   }
 
   onChangeInputSubtractFrom = (value: string) => {
@@ -82,7 +86,7 @@ class AppComponent extends React.Component<IAppComponentProps, IState> {
     });
   };
 
-  onChangeSelectedCurrencyFrom = (rate: TRatesWeUse) => {
+  onChangeSelectedCurrencyFrom = (rate: RATES_WE_USE) => {
     const { selectedCurrencyTo, inputToSubtractFromValue } = this.state;
     const parsedValue = Number(inputToSubtractFromValue);
     const newValue = calculateValueBetweenCurrencies(
@@ -118,7 +122,7 @@ class AppComponent extends React.Component<IAppComponentProps, IState> {
     });
   };
 
-  onChangeSelectedCurrencyTo = (rate: TRatesWeUse) => {
+  onChangeSelectedCurrencyTo = (rate: RATES_WE_USE) => {
     const { inputToSubtractFromValue, selectedCurrencyFrom } = this.state;
 
     const parsedValue = Number(inputToSubtractFromValue);
@@ -201,6 +205,7 @@ class AppComponent extends React.Component<IAppComponentProps, IState> {
         />
         <Pocket
           selectedCurrency={selectedCurrencyTo}
+          oppositeSelectedCurrency={selectedCurrencyFrom}
           onSelectChange={this.onChangeSelectedCurrencyTo}
           balance={balances[selectedCurrencyTo]}
           inputValue={inputToAddValue}
@@ -237,7 +242,4 @@ const mapDispatchToProps: MapDispatchToProps<TMapDispatchProps, {}> = {
   subtractFromBalance: subtractFromBalanceAction
 };
 
-export const App = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AppComponent);
+export const App = connect(mapStateToProps, mapDispatchToProps)(AppComponent);

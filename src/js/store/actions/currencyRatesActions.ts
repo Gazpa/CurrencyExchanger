@@ -4,7 +4,7 @@ import {
   CURRENCY_RATES_ACTION_TYPES,
   ICurrencyRatesAction,
   ICurrencyRatesAPIResponseData,
-  TRatesWeUseMap,
+  TRates,
   RATES_WE_USE
 } from "js/store/actions/types";
 import { API_ENDPOINT, RATES_API_ID } from "js/utils/constants";
@@ -22,7 +22,7 @@ export function fetchLatestAction() {
     fetch(fetchLatestUrl)
       .then(response => response.json())
       .then((data: ICurrencyRatesAPIResponseData) => {
-        const currencyRatesToUse: TRatesWeUseMap = {
+        const currencyRatesToUse: TRates = {
           [RATES_WE_USE.EUR]: data.rates[RATES_WE_USE.EUR],
           [RATES_WE_USE.GBP]: data.rates[RATES_WE_USE.GBP],
           [RATES_WE_USE.USD]: data.rates[RATES_WE_USE.USD]

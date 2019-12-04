@@ -1,11 +1,10 @@
 import {
   BALANCES_ACTION_TYPES,
   IBalanceAction,
-  RATES_WE_USE,
-  TRatesWeUse
+  RATES_WE_USE
 } from "js/store/actions/types";
 
-type IBalancesMap = { [key in TRatesWeUse]: number };
+type IBalancesMap = { [key in RATES_WE_USE]: number };
 export type IBalancesState = IBalancesMap;
 
 export const INITIAL_STATE: IBalancesState = {
@@ -17,7 +16,7 @@ export const INITIAL_STATE: IBalancesState = {
 export const balancesReducer = (
   state: IBalancesState = INITIAL_STATE,
   action: IBalanceAction
-) => {
+): IBalancesState => {
   const { type, payload } = action;
 
   switch (type) {

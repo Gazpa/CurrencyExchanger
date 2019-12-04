@@ -9,7 +9,7 @@ export enum BALANCES_ACTION_TYPES {
 
 interface ICurrencyRatesActionPayload {
   base: RATES_WE_USE;
-  rates: IRates;
+  rates: TRates;
   timestamp: number;
 }
 
@@ -28,26 +28,18 @@ export interface IBalanceAction {
   payload: IBalanceActionPayload;
 }
 
-export interface IRates {
-  [key: string]: number;
-}
-
 export enum RATES_WE_USE {
   EUR = "EUR",
   GBP = "GBP",
   USD = "USD"
 }
-export type TRatesWeUse =
-  | RATES_WE_USE.EUR
-  | RATES_WE_USE.GBP
-  | RATES_WE_USE.USD;
-export type TRatesWeUseMap = { [key in TRatesWeUse]: number };
+export type TRates = { [key in RATES_WE_USE]: number };
 
 export interface ICurrencyRatesAPIResponseData {
   base: RATES_WE_USE;
   disclaimer: string;
   license: string;
-  rates: IRates;
+  rates: TRates;
   timestamp: number;
 }
 

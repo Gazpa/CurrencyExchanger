@@ -14,14 +14,16 @@ const props: IToolsProps = {
   currencyTo: RATES_WE_USE.GBP
 };
 
-beforeEach(() => {
-  wrapped = shallow(<Tools {...props} />);
-});
+describe("Tools", () => {
+  beforeEach(() => {
+    wrapped = shallow(<Tools {...props} />);
+  });
 
-it("shows a dropdowns to select currencies", () => {
-  expect(wrapped.find(CurrencySwap).length).toEqual(1);
-});
+  it("shows a dropdowns to select currencies", () => {
+    expect(wrapped.find(CurrencySwap).length).toEqual(1);
+  });
 
-it("shows balance label for that currency", () => {
-  expect(wrapped.find(RateLabel).length).toEqual(1);
+  it("shows balance label for that currency", () => {
+    expect(wrapped.find(RateLabel).length).toEqual(1);
+  });
 });

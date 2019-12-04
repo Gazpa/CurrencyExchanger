@@ -46,8 +46,7 @@ To be `"js/components/AppClassComponent"`.
 
 All changes in the inputs or other components are managed by the main `App` component and the result is passed as props to children.<br />
 
-We use `redux` to manage app state, but would have been enough with `useReducer` at top level, passing any info needed via props or<br />
-with `useContext`.
+We use `redux` to manage app state, but would have been enough with `useReducer` at top level, passing any info needed via props or with `useContext`.<br />
 
 `Thunk` is added to manage asynchronous actions.
 
